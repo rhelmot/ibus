@@ -80,22 +80,19 @@ AC_DEFUN([VAPIGEN_CHECK],
 
   AC_MSG_CHECKING([for vapigen])
 
-  AS_CASE([$enable_vala],
-    [yes], [
-      VAPIGEN=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapigen $vapigen_pkg_name`
-      VAPIGEN_MAKEFILE=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=datadir $vapigen_pkg_name`/vala/Makefile.vapigen
-      AS_IF([test "x$2" = "x"], [
-          VAPIGEN_VAPIDIR=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapidir $vapigen_pkg_name`
-        ], [
-          VAPIGEN_VAPIDIR=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapidir_versioned $vapigen_pkg_name`
-        ])
+  VAPIGEN=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapigen $vapigen_pkg_name`
+  VAPIGEN_MAKEFILE=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=datadir $vapigen_pkg_name`/vala/Makefile.vapigen
+  AS_IF([test "x$2" = "x"], [
+      VAPIGEN_VAPIDIR=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapidir $vapigen_pkg_name`
+    ], [
+      VAPIGEN_VAPIDIR=$PKG_CONFIG_SYSROOT_DIR`$PKG_CONFIG --variable=vapidir_versioned $vapigen_pkg_name`
     ])
 
-  AC_MSG_RESULT([$enable_vala])
+  AC_MSG_RESULT([$VAPIGEN])
 
   AC_SUBST([VAPIGEN])
   AC_SUBST([VAPIGEN_VAPIDIR])
   AC_SUBST([VAPIGEN_MAKEFILE])
 
-  AM_CONDITIONAL(ENABLE_VAPIGEN, test "x$enable_vala" = "xyes")
+  AM_CONDITIONAL(ENABLE_VAPIGEN, true)
 ])
